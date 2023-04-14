@@ -3,3 +3,6 @@
 /main.o
 /programmet.exe
 /shapes.o
+bin/debug/calculator.o
+bin/debug/main.o
+bin/debug/shapes.o

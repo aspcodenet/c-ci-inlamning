@@ -1,0 +1,19 @@
+CFLAGS=-Wall -Werror -g
+
+programmet.exe: main.o calculator.o shapes.o
+	gcc $(CFLAGS) -o programmet.exe  main.o calculator.o shapes.o
+
+shapes.o: shapes.c
+	gcc $(CFLAGS) -c shapes.c
+
+calculator.o: calculator.c
+	gcc $(CFLAGS) -c calculator.c
+
+main.o: main.c
+	gcc $(CFLAGS) -c main.c
+
+clean:
+	@del /q programmet.exe
+	@del /q *.o
+
+.PHONY: clean	

@@ -1,11 +1,15 @@
 PROG=programmet.exe
+CFLAGS=-Wall -Werror -g
 CC=gcc
-CFLAGS=-g -Wall -Werror
-OBJ=shapes.o main.o calculator.o
-DEPS=shapes.h calculator.h
 
-$(PROG): $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+$(PROG): main.o calculator.o shapes.o
+	$(CC) $(CFLAGS) -o $(PROG)  main.o calculator.o shapes.o
 
-%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	@del /q $(PROG)
+	@del /q *.o
+
+.PHONY: clean	
