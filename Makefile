@@ -1,15 +1,32 @@
 PROG=programmet.exe
-CFLAGS=-Wall -Werror -g
+SOURCES=main.c calculator.c shapes.c
+DEPS=shapes.h calculator.h
 CC=gcc
+CFLAGS=-Wall -Werror
+DEBUG?=1
+ifeq ($(DEBUG), 1)
+	CFLAGS += -g
+	OUTPUTDIR=bin/debug
+	PROG=programmet-debug.exe
+else
+	CFLAGS += -g0 -O3
+	OUTPUTDIR=bin/release
+endif
 
-$(PROG): main.o calculator.o shapes.o
-	$(CC) $(CFLAGS) -o $(PROG)  main.o calculator.o shapes.o
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $<
+OBJS =  $(addprefix $(OUTPUTDIR)/,$(SOURCES:.c=.o))
+
+$(PROG): $(OUTPUTDIR) $(OBJS) 
+	$(CC) $(CFLAGS) -o $(PROG) $(OBJS)
+
+$(OUTPUTDIR)/%.o: %.c $(DEPS)
+	$(CC) $(CFLAGS) -o $@ -c $< 
 
 clean:
+	@del /q "$(OUTPUTDIR)" 
 	@del /q $(PROG)
-	@del /q *.o
 
-.PHONY: clean	
+$(OUTPUTDIR):
+	@mkdir "$(OUTPUTDIR)"
+
+.PHONY: clean

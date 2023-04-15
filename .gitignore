@@ -6,3 +6,7 @@
 bin/debug/calculator.o
 bin/debug/main.o
 bin/debug/shapes.o
+programmet-debug.exe
+bin/release/calculator.o
+bin/release/main.o
+bin/release/shapes.o
